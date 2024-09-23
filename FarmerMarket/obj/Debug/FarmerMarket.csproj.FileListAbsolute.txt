@@ -119,3 +119,9 @@ C:\Users\Meru\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.cspr
 C:\Users\Meru\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMa.3FC8EB56.Up2Date
 C:\Users\Meru\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.dll
 C:\Users\Meru\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.pdb
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\bin\EntityFramework.dll
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\bin\EntityFramework.SqlServer.dll
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\bin\EntityFramework.xml
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\bin\EntityFramework.SqlServer.xml
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.Categories.resources
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.csproj.GenerateResource.cache
