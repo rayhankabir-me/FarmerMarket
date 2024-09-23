@@ -40,8 +40,7 @@ namespace FarmerMarket.Controllers.Api
         {
             string lowerCategoryName = category.Name.Trim().ToLower();
 
-            var existingCategory = _dbContext.Categories
-                                             .FirstOrDefault(c => c.Name.Trim().ToLower() == lowerCategoryName);
+            var existingCategory = _dbContext.Categories.FirstOrDefault(c => c.Name.Trim().ToLower() == lowerCategoryName);
 
             if (existingCategory != null)
             {
