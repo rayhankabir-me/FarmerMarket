@@ -48,6 +48,23 @@ namespace FarmerMarket.Controllers.Api
         }
 
 
+        [Route("api/add-product")]
+        [HttpPost]
+        public IHttpActionResult PostProducts(Product product)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _dbContext.Products.Add(product);
+            _dbContext.SaveChanges();
+
+            return Ok(product);
+        }
+
+
 
     }
 }
