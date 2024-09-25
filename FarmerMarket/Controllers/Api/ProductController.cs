@@ -145,6 +145,56 @@ namespace FarmerMarket.Controllers.Api
         }
 
 
+        [Route("api/products/search")]
+        [HttpGet]
+        public IHttpActionResult SearchProducts(string term = "", int? CategoryId = null)
+        {
+            var query = _dbContext.Products
+                                  .Include(p => p.User)          
+                                  .Include(p => p.Category)      
+                                  .AsQueryable();               
+
+            if (!string.IsNullOrEmpty(term))
+            {
+                query = query.Where(p => p.Name.Contains(term) || p.Description.Contains(term));
+            }
+
+            if (CategoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == CategoryId.Value);
+            }
+
+            var products = query.Select(p => new
+            {
+                p.ProductId,
+                p.Name,
+                p.Price,
+                p.Description,
+                p.Stock,
+                p.ImageUrl,
+                User = new
+                {
+                    p.User.UserId,
+                    p.User.UserName,
+                    p.User.Email
+                },
+                Category = new
+                {
+                    p.Category.CategoryId,
+                    p.Category.Name
+                }
+            }).ToList();
+
+            if (!products.Any())
+            {
+                return NotFound();
+            }
+            return Ok(products); 
+        }
+
+
+
+
 
     }
 }
