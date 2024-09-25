@@ -238,3 +238,5 @@ C:\Users\Meru\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migr
 C:\Users\Meru\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.Products.resources
 C:\Users\Meru\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.OrdersTable.resources
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.OrdersTable.resources
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\bin\Microsoft.Owin.Host.SystemWeb.xml

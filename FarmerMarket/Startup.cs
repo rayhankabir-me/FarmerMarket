@@ -8,13 +8,19 @@ using Microsoft.Owin.Security;
 using System.Text;
 
 
+
+[assembly: OwinStartup(typeof(FarmerMarket.Startup))]
+
 namespace FarmerMarket
 {
     public class Startup
     {
         public void Configuration(IAppBuilder app)
         {
+            var issuer = ConfigurationManager.AppSettings["jwtIssuer"];
+            var audience = ConfigurationManager.AppSettings["jwtAudience"];
             var secret = ConfigurationManager.AppSettings["jwtSecret"];
+
             var key = Convert.FromBase64String(secret);
 
             app.UseJwtBearerAuthentication(new JwtBearerAuthenticationOptions
@@ -22,11 +28,12 @@ namespace FarmerMarket
                 AuthenticationMode = AuthenticationMode.Active,
                 TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = issuer,
+                    ValidAudience = audience,
                     IssuerSigningKey = new SymmetricSecurityKey(key),
-
+                    ValidateIssuerSigningKey = true,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 }
