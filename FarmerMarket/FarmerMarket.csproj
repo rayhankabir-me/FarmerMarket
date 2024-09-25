@@ -243,8 +243,13 @@
     <Compile Include="Migrations\202409251258419_Products.Designer.cs">
       <DependentUpon>202409251258419_Products.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409251656233_OrdersTable.cs" />
+    <Compile Include="Migrations\202409251656233_OrdersTable.Designer.cs">
+      <DependentUpon>202409251656233_OrdersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -356,6 +361,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409251258419_Products.resx">
       <DependentUpon>202409251258419_Products.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409251656233_OrdersTable.resx">
+      <DependentUpon>202409251656233_OrdersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
