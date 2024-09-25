@@ -47,48 +47,43 @@ namespace FarmerMarket.Controllers.Api
                              .ToList();
         }
 
+
+
         [Route("api/products/{id}")]
-        public IHttpActionResult GetProduct(int id)
+        public IHttpActionResult GetProductById(int id)
         {
-
-            var productExists = _dbContext.Products.Any(p => p.ProductId == id);
-            if (!productExists)
-            {
-                return Content(HttpStatusCode.NotFound, $"Product with ID {id} not found.");
-            }
-
-
             var product = _dbContext.Products
-                            .Include(p => p.User)
-                            .Include(p => p.Category)
-                            .Where(p => p.ProductId == id) 
-                            .Select(p => new
-                            {
-                                p.ProductId,
-                                p.Name,
-                                p.Price,
-                                p.Description,
-                                p.Stock,
-                                p.ImageUrl,
-                                User = new
-                                {
-                                    p.User.UserId,
-                                    p.User.UserName,
-                                    p.User.Email
-                                },
-                                Category = new
-                                {
-                                    p.Category.CategoryId,
-                                    p.Category.Name
-                                }
-                            })
-                            .FirstOrDefault();  
+                                    .Include(p => p.User)        
+                                    .Include(p => p.Category)    
+                                    .Where(p => p.ProductId == id) 
+                                    .Select(p => new
+                                    {
+                                        p.ProductId,
+                                        p.Name,
+                                        p.Price,
+                                        p.Description,
+                                        p.Stock,
+                                        p.ImageUrl,
+                                        User = new
+                                        {
+                                            p.User.UserId,
+                                            p.User.UserName,
+                                            p.User.Email
+                                        },
+                                        Category = new
+                                        {
+                                            p.Category.CategoryId,
+                                            p.Category.Name
+                                        }
+                                    })
+                                    .FirstOrDefault();  
 
             if (product == null)
-                return NotFound();
+                return NotFound();  
 
-            return Ok(product);
+            return Ok(product);  
         }
+
 
 
 
