@@ -130,6 +130,21 @@ namespace FarmerMarket.Controllers.Api
         }
 
 
+        [Route("api/products/delete/{id}")]
+        [HttpDelete]
+        public IHttpActionResult DeleteProduct(int id)
+        {
+            var product = _dbContext.Products.FirstOrDefault(x => x.ProductId == id);
+            if (product == null)
+                return NotFound();
+
+            _dbContext.Products.Remove(product);
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
+
 
     }
 }
