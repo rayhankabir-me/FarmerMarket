@@ -117,6 +117,7 @@ namespace FarmerMarket.Controllers.Api
             return Ok(product);
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("api/edit-product/{id}")]
         [HttpPut]
         public IHttpActionResult EditProduct(int id, Product product)
@@ -143,7 +144,7 @@ namespace FarmerMarket.Controllers.Api
             return Ok();
         }
 
-
+        [Authorize(Roles = "Admin")]
         [Route("api/products/delete/{id}")]
         [HttpDelete]
         public IHttpActionResult DeleteProduct(int id)
