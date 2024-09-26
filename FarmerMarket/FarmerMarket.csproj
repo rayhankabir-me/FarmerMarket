@@ -252,10 +252,6 @@
     <Compile Include="Migrations\202409261358105_CreateOrdersTable.Designer.cs">
       <DependentUpon>202409261358105_CreateOrdersTable.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202409261406549_CreateOrdersTable1.cs" />
-    <Compile Include="Migrations\202409261406549_CreateOrdersTable1.Designer.cs">
-      <DependentUpon>202409261406549_CreateOrdersTable1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202409261422457_CartTable.cs" />
     <Compile Include="Migrations\202409261422457_CartTable.Designer.cs">
       <DependentUpon>202409261422457_CartTable.cs</DependentUpon>
@@ -378,9 +374,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409261358105_CreateOrdersTable.resx">
       <DependentUpon>202409261358105_CreateOrdersTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202409261406549_CreateOrdersTable1.resx">
-      <DependentUpon>202409261406549_CreateOrdersTable1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409261422457_CartTable.resx">
       <DependentUpon>202409261422457_CartTable.cs</DependentUpon>
