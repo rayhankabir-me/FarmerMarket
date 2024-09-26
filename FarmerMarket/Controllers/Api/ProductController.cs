@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
+using System.Security.Claims;
 
 namespace FarmerMarket.Controllers.Api
 {
@@ -86,7 +87,7 @@ namespace FarmerMarket.Controllers.Api
 
 
 
-
+        [Authorize(Roles = "Admin")]
         [Route("api/add-product")]
         [HttpPost]
         public IHttpActionResult PostProducts(Product product)
@@ -96,6 +97,19 @@ namespace FarmerMarket.Controllers.Api
             {
                 return BadRequest(ModelState);
             }
+
+            //getting the UserId from the token
+            var identity = User.Identity as ClaimsIdentity;
+            var userIdClaim = identity?.FindFirst("UserId");
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            //setting the UserId in the Product
+            int userId = int.Parse(userIdClaim.Value);
+            product.UserId = userId;
 
             _dbContext.Products.Add(product);
             _dbContext.SaveChanges();
