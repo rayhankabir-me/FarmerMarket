@@ -247,9 +247,13 @@
     <Compile Include="Migrations\202409251258419_Products.Designer.cs">
       <DependentUpon>202409251258419_Products.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202409251656233_OrdersTable.cs" />
-    <Compile Include="Migrations\202409251656233_OrdersTable.Designer.cs">
-      <DependentUpon>202409251656233_OrdersTable.cs</DependentUpon>
+    <Compile Include="Migrations\202409261358105_CreateOrdersTable.cs" />
+    <Compile Include="Migrations\202409261358105_CreateOrdersTable.Designer.cs">
+      <DependentUpon>202409261358105_CreateOrdersTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409261406549_CreateOrdersTable1.cs" />
+    <Compile Include="Migrations\202409261406549_CreateOrdersTable1.Designer.cs">
+      <DependentUpon>202409261406549_CreateOrdersTable1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Category.cs" />
@@ -366,8 +370,11 @@
     <EmbeddedResource Include="Migrations\202409251258419_Products.resx">
       <DependentUpon>202409251258419_Products.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202409251656233_OrdersTable.resx">
-      <DependentUpon>202409251656233_OrdersTable.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202409261358105_CreateOrdersTable.resx">
+      <DependentUpon>202409261358105_CreateOrdersTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409261406549_CreateOrdersTable1.resx">
+      <DependentUpon>202409261406549_CreateOrdersTable1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

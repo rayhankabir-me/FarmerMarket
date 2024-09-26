@@ -26,13 +26,13 @@ namespace FarmerMarket.Models
         public string PaymentMethod { get; set; }
 
         [Required]
-        public  string PayementStatus { get; set; }
+        public string PaymentStatus { get; set; }
 
         [Required]
         public string DeliveryAddress { get; set; }
 
         [Required]
-        public int OrderStatus { get; set; }
+        public string OrderStatus { get; set; }
         public int ProductId { get; set; }
         public int UserId { get; set; }
         public Product Product { get; set; }
