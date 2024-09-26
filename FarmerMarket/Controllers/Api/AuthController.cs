@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net.Sockets;
 using System.Security.Claims;
 using System.Text;
 using System.Web.Http;
+using FarmerMarket.Context;
 using FarmerMarket.Models;
 using Microsoft.IdentityModel.Tokens;
 
@@ -12,16 +14,27 @@ namespace FarmerMarket.Controllers.Api
 {
     public class AuthController : ApiController
     {
+        private FarmerMarketContext _context = new FarmerMarketContext();
+
         [HttpPost]
-        [Route("api/authenticate")]
+        [Route("api/auth/login")]
         public IHttpActionResult Authenticate([FromBody] User model)
         {
 
-            var role = "User";
-            if (model.UserName == "admin")
+
+            var user = _context.Users.FirstOrDefault(u => u.UserName == model.UserName);
+
+            if (user == null)
             {
-                role = "Admin";
-            } //test
+                return BadRequest("Sorry, no user found...!");
+            }
+
+            if (user.Password != model.Password)
+            {
+                return BadRequest("Invalid login credentials...!");
+            }
+
+            var role = user.Role;
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Convert.FromBase64String(ConfigurationManager.AppSettings["jwtSecret"]);
@@ -30,11 +43,12 @@ namespace FarmerMarket.Controllers.Api
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, model.UserName),
+                    new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.Role, role),
-                    new Claim(ClaimTypes.Email, "rayhankabir.wp@gmail.com"),
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim("UserId", user.UserId.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(10),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
                 Issuer = ConfigurationManager.AppSettings["jwtIssuer"],
                 Audience = ConfigurationManager.AppSettings["jwtAudience"]
