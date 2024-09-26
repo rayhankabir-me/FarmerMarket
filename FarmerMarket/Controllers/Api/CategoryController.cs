@@ -33,7 +33,7 @@ namespace FarmerMarket.Controllers.Api
             return Ok(category);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [Route("api/add-category")]
         [HttpPost]
         public IHttpActionResult PostCategory(Category category)
@@ -59,7 +59,7 @@ namespace FarmerMarket.Controllers.Api
         }
 
 
-
+        [Authorize(Roles = "Admin")]
         [Route("api/edit-category/{id}")]
         [HttpPut]
         public IHttpActionResult EditCategory(int id, Category category)
