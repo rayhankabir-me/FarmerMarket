@@ -234,7 +234,9 @@
     <Compile Include="Controllers\Api\AuthController.cs" />
     <Compile Include="Controllers\Api\CartController.cs" />
     <Compile Include="Controllers\Api\CategoryController.cs" />
+    <Compile Include="Controllers\Api\ContactController.cs" />
     <Compile Include="Controllers\Api\OrderController.cs" />
+    <Compile Include="Controllers\Api\PostController.cs" />
     <Compile Include="Controllers\Api\ProductController.cs" />
     <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -270,11 +272,21 @@
     <Compile Include="Migrations\202409271356121_CartTable1.Designer.cs">
       <DependentUpon>202409271356121_CartTable1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409271732211_Contacts.cs" />
+    <Compile Include="Migrations\202409271732211_Contacts.Designer.cs">
+      <DependentUpon>202409271732211_Contacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409271739147_Posts.cs" />
+    <Compile Include="Migrations\202409271739147_Posts.Designer.cs">
+      <DependentUpon>202409271739147_Posts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -371,6 +383,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Auth\" />
+    <Folder Include="Views\Contact\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -398,6 +411,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409271356121_CartTable1.resx">
       <DependentUpon>202409271356121_CartTable1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409271732211_Contacts.resx">
+      <DependentUpon>202409271732211_Contacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409271739147_Posts.resx">
+      <DependentUpon>202409271739147_Posts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

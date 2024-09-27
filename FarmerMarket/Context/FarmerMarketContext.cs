@@ -30,6 +30,8 @@ namespace FarmerMarket.Context
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<CartItem> CartItems { get; set; }
+        public virtual DbSet<Contact> Contacts { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
 
     }
 

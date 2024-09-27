@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Data.Entity;
+using System.Security.Claims;
 
 namespace FarmerMarket.Controllers.Api
 {
@@ -18,6 +19,7 @@ namespace FarmerMarket.Controllers.Api
             _dbContext = new FarmerMarketContext();
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("api/orders")]
         public IEnumerable<object> GetOrders()
         {
@@ -51,6 +53,7 @@ namespace FarmerMarket.Controllers.Api
                              .ToList();
         }
 
+        [Authorize(Roles = "Customer")]
         [Route("api/orders/{id}")]
         public IHttpActionResult GetOrderById(int id)
         {
@@ -91,14 +94,37 @@ namespace FarmerMarket.Controllers.Api
             return Ok(order);
         }
 
+        [Authorize(Roles = "Customer")]
         [Route("api/place-order")]
         [HttpPost]
         public IHttpActionResult PostOrders(Order order)
         {
 
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            //getting the UserId from the token
+            var identity = User.Identity as ClaimsIdentity;
+            var userIdClaim = identity?.FindFirst("UserId");
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            //setting the UserId in the Product
+            int userId = int.Parse(userIdClaim.Value);
+            order.UserId = userId;
+
+            var existingOrder = _dbContext.Orders
+                .FirstOrDefault(o => o.UserId == order.UserId && o.ProductId == order.ProductId);
+
+            if (existingOrder != null)
+            {
+                return BadRequest("You have already placed an order for this product.");
             }
 
             _dbContext.Orders.Add(order);
@@ -107,6 +133,7 @@ namespace FarmerMarket.Controllers.Api
             return Ok(order);
         }
 
+        [Authorize(Roles = "Customer")]
         [Route("api/edit-order/{id}")]
         [HttpPut]
         public IHttpActionResult EditOrder(int id, Order order)
@@ -135,6 +162,7 @@ namespace FarmerMarket.Controllers.Api
             return Ok();
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("api/delete-order/{id}")]
         [HttpDelete]
         public IHttpActionResult DeleteGame(int id)

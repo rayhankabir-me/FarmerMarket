@@ -94,6 +94,11 @@ namespace FarmerMarket.Controllers.Api
                 return NotFound();
             }
 
+            if (product.Stock < 2)
+            {
+                return BadRequest("Product cannot be added to the cart as stock is less than 2.");
+            }
+
             int quantity = 1;
 
             var cartItem = _dbContext.CartItems.FirstOrDefault(ci =>
