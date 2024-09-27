@@ -5,6 +5,7 @@ using System.Web.Http;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
+using System.Web.Http.Cors;
 
 
 namespace FarmerMarket
@@ -13,6 +14,11 @@ namespace FarmerMarket
     {
         public static void Register(HttpConfiguration config)
         {
+
+            // Enable CORS
+            var cors = new EnableCorsAttribute("http://localhost:3000", "*", "*");
+            config.EnableCors(cors);
+
             // Web API configuration and services
 
             config.SuppressDefaultHostAuthentication();

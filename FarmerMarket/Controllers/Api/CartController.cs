@@ -1,144 +1,197 @@
-﻿using System;
+﻿using FarmerMarket.Context;
+using FarmerMarket.Models;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web;
 using System.Web.Http;
-using FarmerMarket.Context;
-using FarmerMarket.Models;
+using System.Data.Entity;
+using System.Security.Claims;
 
 namespace FarmerMarket.Controllers.Api
 {
     public class CartController : ApiController
     {
-        FarmerMarketContext _dbContext;
+
+        public FarmerMarketContext _dbContext;
 
         public CartController()
         {
             _dbContext = new FarmerMarketContext();
         }
 
-        [Route("api/cart")]
-        public IEnumerable<object> GetCarts()
+        [Authorize(Roles = "Customer")]
+        [Route("api/cart/getcart")]
+        [HttpGet]
+        public IHttpActionResult GetCart()
         {
-            return _dbContext.Carts.Include(x => x.Product)
-                .Include(x => x.User)
-                .Select(x => new
-                {
-                    x.Quantity,
-                    x.TotalPrice,
-                    User = new
-                    {
-                        x.User.UserName,
-                    },
-                    Product = new
-                    {
-                        x.Product.Name,
-                        x.Product.Price
-                    }
+            var identity = User.Identity as ClaimsIdentity;
+            var userIdClaim = identity?.FindFirst("UserId");
+
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
+
+            int userId = int.Parse(userIdClaim.Value);
+
+            var cart = _dbContext.Carts
+                .Include(c => c.CartItems.Select(ci => ci.Product))
+                .FirstOrDefault(c => c.UserId == userId);
 
 
-                }).ToList();
-        }
-
-
-
-        [Route("api/cart/{id}")]
-        public IHttpActionResult GetCart(int id)
-        {
-            var cart = _dbContext.Carts.FirstOrDefault(x => x.UserId == id);
-            if (User == null)
+            if (cart == null)
             {
                 return NotFound();
             }
 
-            var carts = _dbContext.Carts.Include(x => x.Product)
-                .Include(x => x.User)
-                .Where(x => x.UserId == id)
-                .Select(x => new
+            var cartResponse = new
+            {
+                CartItems = cart.CartItems.Select(ci => new
                 {
-                    x.Quantity,
-                    x.TotalPrice,
-                    User = new
-                    {
-                        x.User.UserName,
-                    },
-                    Product = new
-                    {
-                        x.Product.Name,
-                        x.Product.Price
-                    }
-                }).ToList();
-            return Ok(carts);
+                    ProductName = ci.Product.Name,
+                    Quantity = ci.Quantity,
+                    TotalPrice = ci.TotalPrice
+                }).ToList()
+            };
+
+            return Ok(cartResponse);
         }
 
 
-
-        [Route("api/cart/add-to-cart")]
+        [Authorize(Roles = "Customer")]
+        [Route("api/cart/addcart")]
         [HttpPost]
-        public IHttpActionResult AddToCart(Cart cart)
+        public IHttpActionResult AddProductToCart(CartItem CartIteams)
         {
-            //var username = HttpContext.Current.Session["Username"] as string;
+            // Get the user ID from the token
+            var identity = User.Identity as ClaimsIdentity;
+            var userIdClaim = identity?.FindFirst("UserId");
 
-            //if (string.IsNullOrEmpty(username))
-            //{
-            //    return BadRequest("User is not logged in.");
-            //}
+            if (userIdClaim == null)
+            {
+                return Unauthorized();
+            }
 
-            //var user = _dbContext.Users.FirstOrDefault(u => u.UserName == username);
+            int userId = int.Parse(userIdClaim.Value);
 
-            //if (user == null)
-            //{
-            //    return BadRequest("Invalid user.");
-            //}
+            var existingCart = _dbContext.Carts.FirstOrDefault(c => c.UserId == userId);
 
-            //cart.UserId = user.UserId;
+            if (existingCart == null)
+            {
+                existingCart = new Cart
+                {
+                    UserId = userId
+                };
+                _dbContext.Carts.Add(existingCart);
+                _dbContext.SaveChanges();
+            }
 
-            var product = _dbContext.Products.FirstOrDefault(p => p.ProductId == cart.ProductId);
-
+            var product = _dbContext.Products.FirstOrDefault(p => p.ProductId == CartIteams.ProductId);
             if (product == null)
             {
-                return BadRequest("Invalid product.");
+                return NotFound();
             }
 
-            if (cart.Quantity <= 0)
+            int quantity = 1;
+
+            var cartItem = _dbContext.CartItems.FirstOrDefault(ci =>
+                ci.CartId == existingCart.CartId && ci.ProductId == product.ProductId);
+
+            if (cartItem == null)
             {
-                cart.Quantity = 1;
+                cartItem = new CartItem
+                {
+                    ProductId = product.ProductId,
+                    Quantity = quantity,
+                    CartId = existingCart.CartId,
+                    TotalPrice = (decimal)(product.Price * quantity)
+                };
+                _dbContext.CartItems.Add(cartItem);
+            }
+            else
+            {
+                cartItem.Quantity += quantity;
+                cartItem.TotalPrice = (decimal)(product.Price * cartItem.Quantity);
             }
 
-            cart.TotalPrice = product.Price * cart.Quantity;
-
-            _dbContext.Carts.Add(cart);
             _dbContext.SaveChanges();
 
-            return Ok("Product added to cart successfully.");
+            return Ok("Product added to cart!");
         }
 
 
-        [Route("api/cart/edit-cart/{id}")]
+        [Authorize(Roles = "Customer")]
+        [Route("api/cart/edit-item")]
         [HttpPut]
-        public IHttpActionResult EditCart(int id, Cart cart)
+        public IHttpActionResult EditCartItem(CartItem cartItem)
         {
-            if (!ModelState.IsValid)
+            // Extract UserId from the token
+            var identity = User.Identity as ClaimsIdentity;
+            var userIdClaim = identity?.FindFirst("UserId");
+
+            if (userIdClaim == null)
             {
-                return BadRequest(ModelState);
+                return Unauthorized(); // If there's no UserId in the token
             }
 
-            var update = _dbContext.Carts.Include(x => x.Product).FirstOrDefault(x => x.CartId == id);
+            int userId = int.Parse(userIdClaim.Value);
 
-            if (update == null)
+            // Find the user's cart
+            var cart = _dbContext.Carts.FirstOrDefault(c => c.UserId == userId);
+
+            if (cart == null)
+            {
+                return NotFound(); // No cart found for the user
+            }
+
+            // Find the cart item to update
+            var existingCartItem = _dbContext.CartItems.FirstOrDefault(ci => ci.CartId == cart.CartId && ci.ItemId == cartItem.ItemId);
+
+            if (existingCartItem == null)
+            {
+                return NotFound(); // No cart item found to update
+            }
+
+            // Validate new quantity
+            if (cartItem.Quantity <= 0)
+            {
+                return BadRequest("Quantity must be greater than zero."); // Check for valid quantity
+            }
+
+            // Update the quantity and calculate the new total price
+            existingCartItem.Quantity = cartItem.Quantity;
+
+            var product = _dbContext.Products.FirstOrDefault(p => p.ProductId == existingCartItem.ProductId);
+            if (product != null)
+            {
+                existingCartItem.TotalPrice = (decimal)(product.Price * existingCartItem.Quantity); // Update total price
+            }
+
+            _dbContext.SaveChanges(); // Save changes to the database
+
+            return Ok("Cart item updated successfully!");
+        }
+
+
+
+
+        [Authorize(Roles = "Customer")]
+        [Route("api/cart/remove-product/{itemId}")]
+        [HttpDelete]
+        public IHttpActionResult RemoveCartItem(int itemId)
+        {
+            var cartItem = _dbContext.CartItems.FirstOrDefault(ci => ci.ItemId == itemId);
+            if (cartItem == null)
             {
                 return NotFound();
             }
 
-            update.Quantity = cart.Quantity;
-            update.TotalPrice = update.Product.Price * update.Quantity;
+            _dbContext.CartItems.Remove(cartItem);
             _dbContext.SaveChanges();
 
-            return Ok("Cart updated successfully.");
+            return Ok("Item removed from cart!");
         }
 
 

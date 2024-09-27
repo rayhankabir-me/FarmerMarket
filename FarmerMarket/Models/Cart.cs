@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -10,14 +11,9 @@ namespace FarmerMarket.Models
     {
         [Key]
         public int CartId { get; set; }
-        [Required]
-        public int Quantity { get; set; }
-        public double TotalPrice { get; set; }
-        public int ProductId { get; set; }
         public int UserId { get; set; }
-
-        public User User { get; set; }
-        public Product Product { get; set; }
+        public virtual User User { get; set; }
+        public virtual ICollection<CartItem> CartItems { get; set; }
 
     }
 }
