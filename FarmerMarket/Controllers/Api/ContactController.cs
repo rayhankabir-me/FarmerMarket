@@ -22,7 +22,18 @@ namespace FarmerMarket.Controllers.Api
         [Route("api/contacts")]
         public IEnumerable<object> GetContacts()
         {
-            return _dbContext.Contacts.ToList();
+            return _dbContext.Contacts
+                .Select(c => new
+                {
+                    c.ContactId,
+                    c.FirstName,
+                    c.LastName,
+                    c.Email,
+                    c.Subject,
+                    c.Message,
+                })
+                .ToList();
+            //return _dbContext.Contacts.ToList();
         }
 
         [Authorize(Roles = "Admin")]
