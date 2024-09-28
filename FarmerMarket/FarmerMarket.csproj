@@ -238,6 +238,7 @@
     <Compile Include="Controllers\Api\OrderController.cs" />
     <Compile Include="Controllers\Api\PostController.cs" />
     <Compile Include="Controllers\Api\ProductController.cs" />
+    <Compile Include="Controllers\Api\RequestProductController.cs" />
     <Compile Include="Controllers\Api\UserController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -284,6 +285,10 @@
     <Compile Include="Migrations\202409281459526_Posts1.Designer.cs">
       <DependentUpon>202409281459526_Posts1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202409281537302_RequestProducts.cs" />
+    <Compile Include="Migrations\202409281537302_RequestProducts.Designer.cs">
+      <DependentUpon>202409281537302_RequestProducts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
@@ -292,6 +297,7 @@
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\RequestProduct.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -424,6 +430,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409281459526_Posts1.resx">
       <DependentUpon>202409281459526_Posts1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409281537302_RequestProducts.resx">
+      <DependentUpon>202409281537302_RequestProducts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
