@@ -50,6 +50,7 @@ namespace FarmerMarket.Controllers.Api
             {
                 CartItems = cart.CartItems.Select(ci => new
                 {
+                    ItemId = ci.ItemId,
                     ProductName = ci.Product.Name,
                     Quantity = ci.Quantity,
                     TotalPrice = ci.TotalPrice
