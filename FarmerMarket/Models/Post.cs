@@ -16,7 +16,7 @@ namespace FarmerMarket.Models
         public string Title { get; set; }
 
         [Required]
-        [MaxLength(80, ErrorMessage = "Word limit exceeded!")]
+        [MinLength(50, ErrorMessage = "Go on, write more!")]
         public string Description { get; set; }
 
         [Required]

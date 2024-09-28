@@ -248,10 +248,6 @@
     <Compile Include="Migrations\202409231646257_Categories.Designer.cs">
       <DependentUpon>202409231646257_Categories.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202409251256458_Users.cs" />
-    <Compile Include="Migrations\202409251256458_Users.Designer.cs">
-      <DependentUpon>202409251256458_Users.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\202409251258419_Products.cs" />
     <Compile Include="Migrations\202409251258419_Products.Designer.cs">
       <DependentUpon>202409251258419_Products.cs</DependentUpon>
@@ -279,6 +275,14 @@
     <Compile Include="Migrations\202409271739147_Posts.cs" />
     <Compile Include="Migrations\202409271739147_Posts.Designer.cs">
       <DependentUpon>202409271739147_Posts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409281206545_Users.cs" />
+    <Compile Include="Migrations\202409281206545_Users.Designer.cs">
+      <DependentUpon>202409281206545_Users.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202409281459526_Posts1.cs" />
+    <Compile Include="Migrations\202409281459526_Posts1.Designer.cs">
+      <DependentUpon>202409281459526_Posts1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -394,9 +398,6 @@
     <EmbeddedResource Include="Migrations\202409231646257_Categories.resx">
       <DependentUpon>202409231646257_Categories.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202409251256458_Users.resx">
-      <DependentUpon>202409251256458_Users.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409251258419_Products.resx">
       <DependentUpon>202409251258419_Products.cs</DependentUpon>
     </EmbeddedResource>
@@ -417,6 +418,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202409271739147_Posts.resx">
       <DependentUpon>202409271739147_Posts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409281206545_Users.resx">
+      <DependentUpon>202409281206545_Users.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202409281459526_Posts1.resx">
+      <DependentUpon>202409281459526_Posts1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

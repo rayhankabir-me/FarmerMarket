@@ -48,6 +48,39 @@ namespace FarmerMarket.Controllers.Api
                              .ToList();
         }
 
+        //for home
+        [Route("api/products/home")]
+        public IEnumerable<object> GetProductsHome()
+        {
+            return _dbContext.Products
+                             .Include(p => p.User)
+                             .Include(p => p.Category)
+                             .OrderByDescending(p => p.ProductId)
+                             .Take(4)
+                             .Select(p => new
+                             {
+                                 p.ProductId,
+                                 p.Name,
+                                 p.Price,
+                                 p.Description,
+                                 p.Stock,
+                                 p.ImageUrl,
+                                 User = new
+                                 {
+                                     p.User.UserId,
+                                     p.User.UserName,
+                                     p.User.Email
+                                 },
+                                 Category = new
+                                 {
+                                     p.Category.CategoryId,
+                                     p.Category.Name
+                                 }
+                             })
+                             .ToList();
+        }
+
+
 
 
         [Route("api/products/{id}")]

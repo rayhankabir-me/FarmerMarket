@@ -26,6 +26,7 @@ namespace FarmerMarket.Controllers.Api
                 .Include(p => p.User)
                 .Select(p => new
                 {
+                    p.PostId,
                     p.Title,
                     p.Description,
                     p.PostDate,

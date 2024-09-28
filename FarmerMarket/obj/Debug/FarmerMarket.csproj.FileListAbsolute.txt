@@ -235,7 +235,6 @@ C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\bin\System.Web.Optimizatio
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\bin\Antlr3.Runtime.pdb
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.csproj.AssemblyReference.cache
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.Categories.resources
-C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.Users.resources
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.Products.resources
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.CreateOrdersTable.resources
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.CartTable.resources
@@ -248,3 +247,5 @@ C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.dll
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.pdb
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.Contacts.resources
 C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.Posts.resources
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.Users.resources
+C:\Users\abdul\source\repos\FarmerMarket\FarmerMarket\obj\Debug\FarmerMarket.Migrations.Posts1.resources

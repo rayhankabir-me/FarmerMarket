@@ -7,13 +7,13 @@ namespace FarmerMarket.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class Users : IMigrationMetadata
+    public sealed partial class Posts1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Users));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Posts1));
         
         string IMigrationMetadata.Id
         {
-            get { return "202409251256458_Users"; }
+            get { return "202409281459526_Posts1"; }
         }
         
         string IMigrationMetadata.Source
