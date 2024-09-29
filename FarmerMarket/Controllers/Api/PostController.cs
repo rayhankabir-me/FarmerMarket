@@ -61,9 +61,7 @@ namespace FarmerMarket.Controllers.Api
                         p.User.UserName,
                         p.User.Email
                     }
-                })
-                .ToList();
-
+                }).FirstOrDefault();
             if (post == null)
                 return NotFound();
 
