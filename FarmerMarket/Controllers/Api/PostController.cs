@@ -41,6 +41,8 @@ namespace FarmerMarket.Controllers.Api
                 .ToList();
         }
 
+
+
         [Route("api/post/{id}")]
         public IHttpActionResult Getpost(int id)
         {
@@ -133,6 +135,42 @@ namespace FarmerMarket.Controllers.Api
             _dbContext.SaveChanges();
 
             return Ok("Post has been deleted!!");
+        }
+
+
+        [Route("api/posts/search")]
+        [HttpGet]
+        public IHttpActionResult SearchPosts(string term = "")
+        {
+            var query = _dbContext.Posts
+                                  .Include(p => p.User)
+                                  .AsQueryable();
+
+            if (!string.IsNullOrEmpty(term))
+            {
+                query = query.Where(p => p.Title.Contains(term) || p.Description.Contains(term));
+            }
+
+            var posts = query.Select(p => new
+            {
+                p.PostId,
+                p.Title,
+                p.Description,
+                p.PostDate,
+                p.ImageUrl,
+                User = new
+                {
+                    p.User.UserId,
+                    p.User.UserName,
+                    p.User.Email
+                }
+            }).ToList();
+
+            if (!posts.Any())
+            {
+                return NotFound();
+            }
+            return Ok(posts);
         }
     }
 }
